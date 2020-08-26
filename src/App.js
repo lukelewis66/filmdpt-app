@@ -1,53 +1,59 @@
 import React, { Component } from "react";
 import "semantic-ui-css/semantic.min.css";
-import logo from "./logo.svg";
 import "./App.css";
 import { Container } from "semantic-ui-react";
+//import User from "./components/user";
+import Users from "./components/users";
 
 class App extends Component {
   state = {
-    data: null,
+    users: [],
   };
 
   componentDidMount() {
-    this.callBackendAPI()
-      .then((res) => this.setState({ data: res.express }))
-      .catch((err) => console.log(err));
-    console.log(this.state.data);
+    this.getUserData();
   }
 
-  callBackendAPI = async () => {
-    const response = await fetch("express_backend");
-    const body = await response.json();
-
-    if (response.states !== 200) {
-      throw Error(body.message);
-    }
-
-    return body;
+  getUserData = () => {
+    fetch("/api/users")
+      .then((res) => res.json())
+      .then((res) =>
+        this.setState({
+          users: res.data.map((user) => ({
+            id: user.user_id,
+            name: user.user_name,
+            user_name: user.user_username,
+            password: user.user_password,
+          })),
+        })
+      )
+      .catch((err) => console.log(err));
   };
+
+  changeActiveMenu = (menuItem) => {
+    console.log("blah");
+  };
+
   render() {
     return (
       <Container>
-        <div className="App-Container">
-          <table className="ui celled padded table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Password</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Name">Test Name</td>
-                <td data-label="Username">Test User Name</td>
-                <td data-label="Password">Test Password</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="ui secondary pointing menu">
+          <a id="Home" class="item active">
+            Home
+          </a>
+          <a id="News" class="item">
+            News
+          </a>
+          <a id="Reservation" class="item">
+            Make a Reservation
+          </a>
+          <div class="right menu">
+            <a class="ui item">Logout</a>
+          </div>
         </div>
-        <p className="App-intro">{this.state.data}</p>
+        <div className="App-Container">
+          <Users users={this.state.users}></Users>
+        </div>
       </Container>
     );
   }

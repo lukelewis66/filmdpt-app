@@ -30,8 +30,6 @@
     "semantic-ui-react": "^1.2.0",
     "sequelize": "^6.3.4"
   },
-  "proxy": "http://localhost:5000",
-  "target": "node",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -52,5 +50,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

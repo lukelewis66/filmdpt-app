@@ -1,13 +1,21 @@
-const express = require("express");
+const express = require("express"),
+  bodyParser = require("body-parser"),
+  app = express(),
+  //setting port for our server
+  //remember to add proxy to server 5000 in package.json
+  //"proxy": "http://localhost:5000"
+  //UPDATE: Line above does not work, must use
+  //
+  //   "proxy": {
+  //     "secure": true,
+  //     "target": {
+  //       "host": "https://localhost",
+  //       "port": 5000
+  //     }
+  //
+  port = process.env.PORT || 5000;
 const cors = require("cors");
 const mysql = require("mysql");
-
-const app = express();
-
-//setting port for our server
-//remember to add proxy to server 5000 in package.json
-//"proxy": "http://localhost:5000"
-const port = process.env.PORT || 5000;
 
 const SELECT_ALL_USERS_QRY = "SELECT * FROM TBL_USER";
 const connection = mysql.createConnection({
@@ -17,6 +25,8 @@ const connection = mysql.createConnection({
   database: "reservation_app",
 });
 
+app.use(cors());
+app.use(express.json());
 connection.connect((err) => {
   if (err) {
     console.log("connection error: ", err);
@@ -24,11 +34,10 @@ connection.connect((err) => {
   }
 });
 
-console.log(connection);
-
 app.listen(port, () => console.log("listening on port ", port));
 
-app.get("/users", (req, res) => {
+app.get("/api/users", (req, res) => {
+  console.log("user endpoint called");
   connection.query(SELECT_ALL_USERS_QRY, (err, results) => {
     if (err) {
       console.log("error: ", err);
@@ -41,9 +50,9 @@ app.get("/users", (req, res) => {
   });
 });
 
+//query to add user
 app.get("/users/add", (req, res) => {
   const { name, username, password } = req.query;
-  console.log("name: ", name, " username: ", username, " password: ", password);
   const INSERT_USER_QRY = `INSERT INTO tbl_user (user_name, user_username, user_password) VALUES('${name}', '${username}', '${password}')`;
   connection.query(INSERT_USER_QRY, (err, results) => {
     if (err) {
