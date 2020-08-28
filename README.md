@@ -1,68 +1,19 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a React application designed to be a proof-of-concept web app aimed to be used by a school's film department and their students. It uses React for the frontend, and Node.js (express) and MySQL for the backend.
 
-## Available Scripts
+### `Why am I building it?`
 
-In the project directory, you can run:
+One of my previous jobs was working in the office of a local college's TV & Film Department's office. One of the main functions of the office was lending out film gear and accessories from our catalogue for film students to use for their projects. <br /><br />
 
-### `npm start`
+As part of the reservation workflow, students would use a third party service to request film gear, which the office would then approve, and print out a physical form created by this web service to help us keep track of the reservation. This form was clunky and confusing, and by boss, knowing that I was a Computer Science student, asked me if I could somehow change this output form to make it easier for us to do our job. <br /><br />
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+I did some research, and decided to scrape keywords from the web service's output using Python, which I then injected into a custom HTML template that I made using Kompozer (a 'what you see is what you get' drag and drop HTML generator) since I was still new to any sort of web design. This script is still being used by the office today, 2+ years after I left the position.<br /><br />
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+After some pondering on what to do for a project, I figured why don't I make my own version of the reservation service? Better yet, why not I make the film department its own website (theirs is a little bit outdated as well) which has this service implemented in it? With that in mind, I started on this project.
 
-### `npm test`
+### `The script`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can find this script in its <a href="https://github.com/lukelewis66/sbcc-reservation-simplifier">repository.</a> It's really quite simple, but I am proud of the problem I solved with it.
 
-### `npm run build`
+### `What's next`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Note that this is an unfinished, proof-of-concept application. Once I am finished, I am planning on contacting my old workplace to see if they would be willing to implement and use my service. If all goes well, who knows, maybe I can offer it to film departments at other colleges and universities. Only time will tell.
