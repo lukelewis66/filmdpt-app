@@ -2,19 +2,22 @@ import React, { Component } from "react";
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
 import { Container } from "semantic-ui-react";
-//import User from "./components/user";
 import Users from "./components/users";
+import GearList from "./components/gearlist";
+import Navbar from "./components/navbar";
 
 class App extends Component {
   state = {
     users: [],
+    gearlist: [],
   };
 
   componentDidMount() {
-    this.getUserData();
+    this.getUserList();
+    this.getGearList();
   }
 
-  getUserData = () => {
+  getUserList = () => {
     fetch("/api/users")
       .then((res) => res.json())
       .then((res) =>
@@ -30,29 +33,33 @@ class App extends Component {
       .catch((err) => console.log(err));
   };
 
-  changeActiveMenu = (menuItem) => {
-    console.log("blah");
+  getGearList = () => {
+    fetch("/api/gear")
+      .then((res) => res.json())
+      .then((res) =>
+        this.setState({
+          gearlist: res.data.map((gear) => ({
+            id: gear.gear_id,
+            name: gear.gear_name,
+            level: gear.gear_level,
+            available: gear.gear_available,
+            returndate: gear.gear_returndate,
+            borrowingUserID: gear.gear_borrowingUserID,
+          })),
+        })
+      )
+      .catch((err) => console.log(err));
   };
 
   render() {
     return (
       <Container>
-        <div class="ui secondary pointing menu">
-          <a id="Home" class="item active">
-            Home
-          </a>
-          <a id="News" class="item">
-            News
-          </a>
-          <a id="Reservation" class="item">
-            Make a Reservation
-          </a>
-          <div class="right menu">
-            <a class="ui item">Logout</a>
-          </div>
-        </div>
+        <Navbar />
         <div className="App-Container">
           <Users users={this.state.users}></Users>
+        </div>
+        <div style={{ paddingTop: 15 }} className="App-Container">
+          <GearList gearlist={this.state.gearlist}></GearList>
         </div>
       </Container>
     );
