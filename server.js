@@ -4,25 +4,18 @@ const express = require("express"),
   //setting port for our server
   //remember to add proxy to server 5000 in package.json
   //"proxy": "http://localhost:5000"
-  //UPDATE: Line above does not work, must use
-  //
-  //   "proxy": {
-  //     "secure": true,
-  //     "target": {
-  //       "host": "https://localhost",
-  //       "port": 5000
-  //     }
-  //
   port = process.env.PORT || 5000;
 const cors = require("cors");
 const mysql = require("mysql");
+const config = require("./config");
+const db = config.database;
 
 const SELECT_ALL_USERS_QRY = "SELECT * FROM TBL_USER";
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "reservation_app",
+  host: db.host,
+  user: db.user,
+  password: db.password,
+  database: db.database,
 });
 
 app.use(cors());
