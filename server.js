@@ -10,7 +10,6 @@ const mysql = require("mysql");
 const config = require("./config");
 const db = config.database;
 
-const SELECT_ALL_USERS_QRY = "SELECT * FROM TBL_USER";
 const connection = mysql.createConnection({
   host: db.host,
   user: db.user,
@@ -30,7 +29,7 @@ connection.connect((err) => {
 app.listen(port, () => console.log("listening on port ", port));
 
 app.get("/api/users", (req, res) => {
-  console.log("user endpoint called");
+  const SELECT_ALL_USERS_QRY = "SELECT * FROM TBL_USER";
   connection.query(SELECT_ALL_USERS_QRY, (err, results) => {
     if (err) {
       console.log("error: ", err);
@@ -45,7 +44,6 @@ app.get("/api/users", (req, res) => {
 
 //get all gear from tbl_gear
 app.get("/api/gear", (req, res) => {
-  console.log("gear endpoint called");
   const SELECT_ALL_GEAR_QRY = "SELECT * FROM tbl_gear";
   connection.query(SELECT_ALL_GEAR_QRY, (err, results) => {
     if (err) {

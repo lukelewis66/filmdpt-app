@@ -5,6 +5,7 @@ import { Container } from "semantic-ui-react";
 import Users from "./components/users";
 import GearList from "./components/gearlist";
 import Navbar from "./components/navbar";
+import AddGearModal from "./components/addGearModal";
 
 class App extends Component {
   state = {
@@ -61,6 +62,7 @@ class App extends Component {
         <div style={{ paddingTop: 15 }} className="App-Container">
           <GearList gearlist={this.state.gearlist}></GearList>
         </div>
+        <AddGearModal></AddGearModal>
       </Container>
     );
   }
