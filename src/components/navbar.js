@@ -33,6 +33,13 @@ class Navbar extends Component {
         >
           Make a Reservation
         </a>
+        <a
+          id="Admin"
+          onClick={() => this.changeActiveMenu("Admin")}
+          className="item"
+        >
+          Admin
+        </a>
         <div className="right menu">
           <a className="ui item">Logout</a>
         </div>

@@ -57,22 +57,8 @@ app.get("/api/gear", (req, res) => {
   });
 });
 
-//add gear to tbl_gear
-app.get("api/gear/add", (req, res) => {
-  const { gear_name, gear_level, gear_available } = req.query;
-  const INSERT_GEAR_QRY = `INSERT INTO tbl_gear (gear_name, gear_level, gear_available VALUES('${gear_name}', ${gear_level}, ${gear_available})`;
-  connection.query(INSERT_GEAR_QRY, (err, results) => {
-    if (err) {
-      console.log("add gear error: ", err);
-      return err;
-    } else {
-      return res.send("successfully added item");
-    }
-  });
-});
-
 //query to add user
-app.get("api/users/add", (req, res) => {
+app.get("/api/users/add", (req, res) => {
   const { name, username, password } = req.query;
   const INSERT_USER_QRY = `INSERT INTO tbl_user (user_name, user_username, user_password) VALUES('${name}', '${username}', '${password}')`;
   connection.query(INSERT_USER_QRY, (err, results) => {
@@ -88,4 +74,20 @@ app.get("api/users/add", (req, res) => {
 //setting up a GET route which will be fetched by react app
 app.get("/express_backend", (req, res) => {
   res.send({ express: "YOUR EXPRESS BACKEND IS CONNECTED TO REACT" });
+});
+
+app.post("/api/gear/add", (req, res) => {
+  const formBody = req.body.form;
+  const gear_name = formBody.name;
+  const gear_level = formBody.level;
+  const gear_available = formBody.available;
+  const INSERT_GEAR_QRY = `INSERT INTO tbl_gear (gear_name, gear_level, gear_available) VALUES('${gear_name}', ${gear_level}, ${gear_available})`;
+  connection.query(INSERT_GEAR_QRY, (err, results) => {
+    if (err) {
+      console.log("add gear error: ", err);
+      return err;
+    } else {
+      return res.send("successfully added item");
+    }
+  });
 });

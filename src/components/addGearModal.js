@@ -5,14 +5,56 @@ import AddGearForm from "./addGearForm";
 
 function AddGearModal() {
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [level, setLevel] = useState("1");
-  const [available, setAvailable] = useState("1");
+  const [form, setForm] = useState({
+    name: "",
+    level: "1",
+    available: "1",
+  });
+  const [formMessage, setFormMessage] = useState("");
 
-  const handleChange = (name, value) => {
-    //this.setState({ [name]: value });
-    console.log("Name: ", name);
-    console.log("Value: ", value);
+  //this function is passed to the addGearForm child component along with the form state object defined above.
+  //Whenever a change is detected in any of the input fields, the form object is updated to reflect the changes.
+  const handleChange = (field, value) => {
+    //TODO: find a way to replace this switch to dynamically change the appropriate field in the form object based off field value above
+    switch (field) {
+      case "name":
+        setForm({
+          name: value,
+          level: form.level,
+          available: form.available,
+        });
+        break;
+      case "level":
+        setForm({
+          name: form.name,
+          level: value,
+          available: form.available,
+        });
+        break;
+      case "available":
+        setForm({
+          name: form.name,
+          level: form.level,
+          available: value,
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = () => {
+    if (form.name === "") {
+      setFormMessage("Name field cannot be blank");
+      return;
+    }
+    console.log("form when we submit: ", form);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ form }),
+    };
+    fetch("/api/gear/add", requestOptions);
   };
 
   return (
@@ -29,14 +71,12 @@ function AddGearModal() {
       >
         <Modal.Header>Add New Gear</Modal.Header>
         <Modal.Content>
-          <AddGearForm
-            name={name}
-            level={level}
-            avilable={available}
-            onChange={() => handleChange}
-          />
+          <AddGearForm form={form} handleChange={handleChange} />
         </Modal.Content>
         <Modal.Actions>
+          <label id="form-message" style={{ color: "red" }}>
+            {formMessage}
+          </label>
           <Button color="black" onClick={() => setOpen(false)}>
             Nope
           </Button>
@@ -44,7 +84,7 @@ function AddGearModal() {
             content="Add Gear"
             labelPosition="right"
             icon="checkmark"
-            onClick={() => setOpen(false)}
+            onClick={() => handleSubmit()}
             positive
           />
         </Modal.Actions>
