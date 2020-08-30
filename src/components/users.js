@@ -3,7 +3,6 @@ import User from "./user";
 
 class Users extends Component {
   render() {
-    const { users } = this.props.users;
     return (
       <div>
         <table className="ui celled padded table">

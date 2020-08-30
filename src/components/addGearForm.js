@@ -13,7 +13,6 @@ const AddGearForm = ({ form, handleChange }) => {
     { key: "1", value: "1", text: "Yes" },
     { key: "0", value: "0", text: "No" },
   ];
-  console.log("form rendered");
   return (
     <Form>
       <Form.Field>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input, Menu, Segment } from "semantic-ui-react";
 
-const Navbar2 = ({ activePage, doPageClick }) => {
+const Navbar = ({ activePage, doPageClick }) => {
   console.log("activePage on render: ", activePage);
   const [active, setActive] = useState(activePage);
   console.log("active: ", active);
@@ -39,4 +39,4 @@ const Navbar2 = ({ activePage, doPageClick }) => {
   );
 };
 
-export default Navbar2;
+export default Navbar;
