@@ -3,7 +3,7 @@ import { Container, Modal, Button, Icon } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import AddGearForm from "./addGearForm";
 
-function AddGearModal() {
+const AddGearModal = ({ doGearAdd }) => {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -54,7 +54,9 @@ function AddGearModal() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ form }),
     };
-    fetch("/api/gear/add", requestOptions);
+    fetch("/api/gear/add", requestOptions)
+      .then((response) => console.log("response: ", response))
+      .then(() => doGearAdd());
   };
 
   return (
@@ -91,6 +93,6 @@ function AddGearModal() {
       </Modal>
     </Container>
   );
-}
+};
 
 export default AddGearModal;

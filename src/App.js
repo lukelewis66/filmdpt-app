@@ -1,22 +1,28 @@
 import React, { Component } from "react";
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
-import { Container } from "semantic-ui-react";
+import { Container, Segment } from "semantic-ui-react";
 import Users from "./components/users";
 import GearList from "./components/gearlist";
-import Navbar from "./components/navbar";
+import Navbar2 from "./components/navbar2";
 import AddGearModal from "./components/addGearModal";
 
 class App extends Component {
   state = {
     users: [],
     gearlist: [],
+    activePage: "home",
   };
 
   componentDidMount() {
     this.getUserList();
     this.getGearList();
   }
+
+  //called after any sort of add/remove/edit to gear list
+  reloadGearList = () => {
+    this.getGearList();
+  };
 
   getUserList = () => {
     fetch("/api/users")
@@ -52,17 +58,28 @@ class App extends Component {
       .catch((err) => console.log(err));
   };
 
+  handlePageClick = (name) => {
+    this.setState({ activePage: name });
+    console.log("active page state: ", this.state.activePage);
+  };
+
   render() {
+    const { activePage } = this.state.activePage;
     return (
       <Container>
-        <Navbar />
-        <div className="App-Container">
-          <Users users={this.state.users}></Users>
-        </div>
-        <div style={{ paddingTop: 15 }} className="App-Container">
-          <GearList gearlist={this.state.gearlist}></GearList>
-        </div>
-        <AddGearModal></AddGearModal>
+        <Navbar2
+          activePage={this.state.activePage}
+          doPageClick={this.handlePageClick}
+        />
+        <Segment>
+          <div className="App-Container">
+            <Users users={this.state.users}></Users>
+          </div>
+          <div style={{ paddingTop: 15 }} className="App-Container">
+            <GearList gearlist={this.state.gearlist}></GearList>
+          </div>
+          <AddGearModal doGearAdd={this.reloadGearList}></AddGearModal>
+        </Segment>
       </Container>
     );
   }
