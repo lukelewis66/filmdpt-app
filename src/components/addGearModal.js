@@ -58,7 +58,7 @@ const AddGearModal = ({ doGearAdd }) => {
       .then((response) => console.log("response: ", response))
       .then(() => doGearAdd());
   };
-  //test contribution
+  //test contribution2
 
   return (
     <Container>
