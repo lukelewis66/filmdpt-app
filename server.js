@@ -60,6 +60,9 @@ app.get("/api/gear", (req, res) => {
 //query to add user
 app.get("/api/users/add", (req, res) => {
   const { name, username, password } = req.query;
+  name = mysql_real_escape_string(name);
+  username = mysql_real_escape_string(username);
+  password = mysql_real_escape_string(password);
   const INSERT_USER_QRY = `INSERT INTO tbl_user (user_name, user_username, user_password) VALUES('${name}', '${username}', '${password}')`;
   connection.query(INSERT_USER_QRY, (err, results) => {
     if (err) {
@@ -78,9 +81,9 @@ app.get("/express_backend", (req, res) => {
 
 app.post("/api/gear/add", (req, res) => {
   const formBody = req.body.form;
-  const gear_name = formBody.name;
-  const gear_level = formBody.level;
-  const gear_available = formBody.available;
+  const gear_name = mysql_real_escape_string(formBody.name);
+  const gear_level = mysql_real_escape_string(formBody.level);
+  const gear_available = mysql_real_escape_string(formBody.available);
   const INSERT_GEAR_QRY = `INSERT INTO tbl_gear (gear_name, gear_level, gear_available) VALUES('${gear_name}', ${gear_level}, ${gear_available})`;
   connection.query(INSERT_GEAR_QRY, (err, results) => {
     if (err) {
@@ -91,3 +94,32 @@ app.post("/api/gear/add", (req, res) => {
     }
   });
 });
+
+//adds escape characters to special characters in sql string.
+function mysql_real_escape_string(str) {
+  if (typeof str != "string") return str;
+  return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
+    switch (char) {
+      case "\0":
+        return "\\0";
+      case "\x08":
+        return "\\b";
+      case "\x09":
+        return "\\t";
+      case "\x1a":
+        return "\\z";
+      case "\n":
+        return "\\n";
+      case "\r":
+        return "\\r";
+      case '"':
+      case "'":
+      case "\\":
+      case "%":
+        return "\\" + char; // prepends a backslash to backslash, percent,
+      // and double/single quotes
+      default:
+        return char;
+    }
+  });
+}
