@@ -4,6 +4,7 @@ import Users from "./users";
 const Home = () => {
   const [users, setUsers] = useState([]);
 
+  //the second parameter ([]) is needed, else useEffect will infinitely be called
   useEffect(() => {
     getUserList();
   }, []);

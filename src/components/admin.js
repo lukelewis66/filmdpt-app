@@ -5,16 +5,9 @@ import AddGearModal from "./addGearModal";
 
 const Admin = () => {
   const [gearList, setGearList] = useState([]);
-  var isMounted = false;
 
   useEffect(() => {
-    isMounted = true;
-    if (isMounted) {
-      getGearList();
-    }
-    return () => {
-      isMounted = false;
-    };
+    getGearList();
   }, []);
 
   const reloadGearList = () => {

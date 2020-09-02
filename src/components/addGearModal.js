@@ -58,6 +58,7 @@ const AddGearModal = ({ doGearAdd }) => {
       .then((response) => console.log("response: ", response))
       .then(() => doGearAdd());
   };
+  //test contribution
 
   return (
     <Container>
@@ -66,7 +67,7 @@ const AddGearModal = ({ doGearAdd }) => {
         onOpen={() => setOpen(true)}
         open={open}
         trigger={
-          <Button icon>
+          <Button style={{ float: "right" }} icon>
             <Icon name="plus" />
           </Button>
         }
