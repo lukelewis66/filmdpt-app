@@ -1,15 +1,26 @@
-const express = require("express"),
-  bodyParser = require("body-parser"),
-  app = express(),
-  //setting port for our server
-  //remember to add proxy to server 5000 in package.json
-  //"proxy": "http://localhost:5000"
-  port = process.env.PORT || 5000;
+const app = express();
+
+const express = require("express");
+const bodyParser = require("body-parser");
+const port = process.env.PORT || 5000;
 const cors = require("cors");
 const mysql = require("mysql");
-const config = require("./config");
-const db = config.database;
+const config = require("./dbconfig");
+const passport = require("passport");
+require("./config/passport");
+require("./routes/loginUser")(app);
+require("./routes/registerUser")(app);
+require("./routes/findUsers")(app);
+require("./routes/deleteUser")(app);
+require("./routes/updateUser")(app);
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
+app.use(express.json());
+app.use(passport.initialize());
+
+const db = config.database;
 const connection = mysql.createConnection({
   host: db.host,
   user: db.user,
@@ -17,8 +28,6 @@ const connection = mysql.createConnection({
   database: db.database,
 });
 
-app.use(cors());
-app.use(express.json());
 connection.connect((err) => {
   if (err) {
     console.log("connection error: ", err);
