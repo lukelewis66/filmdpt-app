@@ -30,4 +30,4 @@ sequelize
   .catch((error) => console.log(error));
 // sequelize.sync().then(() => {
 //   console.log("Users db and user table have been created");
-// });
+// });a
