@@ -20,15 +20,14 @@ const Item = ItemModel(sequelize, Sequelize);
 const User = UserModel(sequelize, Sequelize);
 const Reservation = ReservationModel(sequelize, Sequelize);
 
-Item.hasOne(User);
 Reservation.hasMany(Item);
-Reservation.hasOne(User);
-async () => {
-  await sequelize
-    .sync()
-    .then(() => console.log("all tables synced"))
-    .catch((error) => console.log(error));
-};
+Item.belongsTo(Reservation);
+Reservation.belongsTo(User);
+
+sequelize
+  .sync({ alter: true })
+  .then(() => console.log("all tables synced"))
+  .catch((error) => console.log(error));
 // sequelize.sync().then(() => {
 //   console.log("Users db and user table have been created");
 // });
