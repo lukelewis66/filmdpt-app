@@ -1,6 +1,5 @@
 import jwtSecret from "./jwtConfig";
 import bcrypt from "bcrypt";
-import { ExtractJwt } from "passport-jwt";
 
 //https://itnext.io/implementing-json-web-tokens-passport-js-in-a-javascript-application-with-react-b86b1f313436
 //what I referenced to get this working
@@ -17,7 +16,7 @@ passport.use(
   "register",
   new localStrategy(
     {
-      usernameField: "username",
+      usernameField: "email",
       passwordField: "password",
       session: false,
     },
@@ -29,8 +28,10 @@ passport.use(
           },
         }).then((user) => {
           if (user !== null) {
-            console.log("username already taken");
-            return done(null, false, { message: "username already taken" });
+            console.log("an account with this email already exists");
+            return done(null, false, {
+              message: "an account with this email already exists",
+            });
           } else {
             bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then((hashedPassword) => {
               User.create({ username, password: hashedPassword }).then(
@@ -53,7 +54,7 @@ passport.use(
   "login",
   new localStrategy(
     {
-      usernameField: "username",
+      usernameField: "email",
       passwordField: "password",
       session: false,
     },
@@ -65,12 +66,12 @@ passport.use(
           },
         }).then((user) => {
           if (user === null) {
-            return done(null, false, { message: "bad username" });
+            return done(null, false, { message: "bad email" });
           } else {
             bcrypt.compare(password, user.password).then((response) => {
               if (response !== true) {
-                console.log("passwords do not match");
-                return done(null, false, { message: "passwords do not match" });
+                console.log("incorrent password");
+                return done(null, false, { message: "incorrent password" });
               }
               console.log("user found & authenticated");
               return done(null, user);

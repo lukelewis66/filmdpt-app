@@ -15,32 +15,10 @@ const AddGearModal = ({ doGearAdd }) => {
   //this function is passed to the addGearForm child component along with the form state object defined above.
   //Whenever a change is detected in any of the input fields, the form object is updated to reflect the changes.
   const handleChange = (field, value) => {
-    //TODO: find a way to replace this switch to dynamically change the appropriate field in the form object based off field value above
-    switch (field) {
-      case "name":
-        setForm({
-          name: value,
-          level: form.level,
-          available: form.available,
-        });
-        break;
-      case "level":
-        setForm({
-          name: form.name,
-          level: value,
-          available: form.available,
-        });
-        break;
-      case "available":
-        setForm({
-          name: form.name,
-          level: form.level,
-          available: value,
-        });
-        break;
-      default:
-        break;
-    }
+    setForm((prevState) => ({
+      ...prevState,
+      [field]: value,
+    }));
   };
 
   const handleSubmit = () => {
