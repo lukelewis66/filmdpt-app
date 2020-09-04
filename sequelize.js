@@ -20,14 +20,15 @@ const Item = ItemModel(sequelize, Sequelize);
 const User = UserModel(sequelize, Sequelize);
 const Reservation = ReservationModel(sequelize, Sequelize);
 
+//if borrowed, each item will have a foreign key associated with the reservation
 Reservation.hasMany(Item);
 Item.belongsTo(Reservation);
+//each reservation will have a foreign key associated with the user borrowing the items
 Reservation.belongsTo(User);
 
 sequelize
   .sync({ alter: true })
   .then(() => console.log("all tables synced"))
   .catch((error) => console.log(error));
-// sequelize.sync().then(() => {
-//   console.log("Users db and user table have been created");
-// });a
+
+module.exports = { Item, User, Reservation };

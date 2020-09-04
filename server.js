@@ -1,5 +1,6 @@
 const app = express();
 
+//TODO: UPDATE ALL QUERIES TO USE SEQUELIZE AND NEW TABLES
 const express = require("express");
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 5000;
