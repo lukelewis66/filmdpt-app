@@ -1,9 +1,7 @@
-import jwtSecret from "./jwtConfig";
-import bcrypt from "bcrypt";
-
 //https://itnext.io/implementing-json-web-tokens-passport-js-in-a-javascript-application-with-react-b86b1f313436
 //what I referenced to get this working
-
+jwtSecret = require("./jwtConfig");
+bcrypt = require("bcrypt");
 const BCRYPT_SALT_ROUNDS = 12;
 
 const passport = require("passport"),

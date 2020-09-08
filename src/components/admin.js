@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Container } from "semantic-ui-react";
 import GearList from "./gearlist";
-import AddGearModal from "./addGearModal";
+import AddGearModal from "./modals/addGearModal";
 
 const Admin = () => {
   const [gearList, setGearList] = useState([]);

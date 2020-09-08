@@ -1,5 +1,5 @@
-import User from "../sequelize";
-import passport from "passport";
+const User = require("../sequelize");
+const passport = require("passport");
 
 module.exports = (app) => {
   app.post("/registerUser", (req, res, next) => {

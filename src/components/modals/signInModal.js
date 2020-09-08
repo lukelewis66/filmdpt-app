@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Modal, Button, Icon, Form } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
-const SignUpModal = () => {
-  const [open, setOpen] = useState(false);
+const SignInModal = ({ signIn, signInClick }) => {
   const [formMessage, setFormMessage] = useState("");
   const [form, setForm] = useState({
-    first_name: "",
-    last_name: "",
     email: "",
     password: "",
-    confirm_password: "",
   });
+
+  useEffect(() => {
+    //clear form fields here?
+  });
+
   const handleClick = () => {
     console.log("clicked");
   };
@@ -23,37 +24,33 @@ const SignUpModal = () => {
     }));
   };
 
+  const handleClose = () => {
+    console.log("handle close called");
+    clearFields();
+    signInClick(false);
+  };
+
+  const handleOpen = () => {
+    console.log("handle open called");
+    clearFields();
+    signInClick(true);
+  };
+
+  const clearFields = () => {
+    form.email = "";
+    form.password = "";
+  };
+
   return (
     <Container>
       <Modal
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        open={open}
-        trigger={<Button>Log In / Sign Up</Button>}
+        onClose={() => handleClose()}
+        onOpen={() => handleOpen()}
+        open={signIn}
       >
-        <Modal.Header>Sign Up</Modal.Header>
+        <Modal.Header>Sign In</Modal.Header>
         <Modal.Content>
           <Form>
-            <Form.Group widths="equal">
-              <Form.Field>
-                <Form.Input
-                  label="First Name"
-                  placeholder="First Name"
-                  field="first_name"
-                  value={form.first_name}
-                  onChange={(e, { field, value }) => handleChange(field, value)}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Form.Input
-                  label="Last Name"
-                  placeholder="Last Name"
-                  field="last_name"
-                  value={form.last_name}
-                  onChange={(e, { field, value }) => handleChange(field, value)}
-                />
-              </Form.Field>
-            </Form.Group>
             <Form.Field>
               <Form.Input
                 label="Email"
@@ -73,23 +70,13 @@ const SignUpModal = () => {
                 onChange={(e, { field, value }) => handleChange(field, value)}
               />
             </Form.Field>
-            <Form.Field>
-              <Form.Input
-                label="Confirm Password"
-                type="password"
-                placeholder="Confirm Password"
-                field="confirm_password"
-                value={form.confirm_password}
-                onChange={(e, { field, value }) => handleChange(field, value)}
-              />
-            </Form.Field>
           </Form>
         </Modal.Content>
         <Modal.Actions>
           <label id="form-message" style={{ color: "red" }}>
             {formMessage}
           </label>
-          <Button color="black" onClick={() => setOpen(false)}>
+          <Button color="black" onClick={() => handleClose()}>
             Nope
           </Button>
           <Button
@@ -105,4 +92,4 @@ const SignUpModal = () => {
   );
 };
 
-export default SignUpModal;
+export default SignInModal;

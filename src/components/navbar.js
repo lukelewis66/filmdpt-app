@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Menu, Segment } from "semantic-ui-react";
-import SignUpModal from "./signUpModal";
+import SignUpModal from "./modals/signUpModal";
+import SignInModal from "./modals/signInModal";
 
 const Navbar = ({ activePage, doPageClick }) => {
-  console.log("activePage on render: ", activePage);
   const [active, setActive] = useState(activePage);
-  console.log("active: ", active);
+  const [signUp, setSignUp] = useState(false);
+  const [signIn, setSignIn] = useState(false);
 
   const handlePageClick = (name) => {
     setActive(name);
@@ -14,6 +15,25 @@ const Navbar = ({ activePage, doPageClick }) => {
 
   const doSomething = () => {
     console.log("something");
+    setSignUp(true);
+  };
+
+  const handleSignUpModal = (open) => {
+    //as of now open === true should not be happening, because the prop (set by sign up button) passed to modal is directly opening it.
+    //though could be useful for later if we want some other trigger for opening it up.
+    if (open === true) {
+      setSignUp(true);
+    } else {
+      setSignUp(false);
+    }
+  };
+
+  const handleSignInModal = (open) => {
+    if (open === true) {
+      setSignIn(true);
+    } else {
+      setSignIn(false);
+    }
   };
 
   return (
@@ -40,12 +60,13 @@ const Navbar = ({ activePage, doPageClick }) => {
           onClick={(e, { name }) => handlePageClick(name)}
         />
         <Menu.Menu position="right">
-          <Menu.Item name="Sign Up" onClick={doSomething} />
-          <Menu.Item name="Sign In" onClick={doSomething} />
+          <Menu.Item name="Sign Up" onClick={() => setSignUp(true)} />
+          <Menu.Item name="Sign In" onClick={() => setSignIn(true)} />
           <Menu.Item name="Sign Out" onClick={doSomething} />
         </Menu.Menu>
       </Menu>
-      <SignUpModal />
+      <SignUpModal signUp={signUp} signUpClick={handleSignUpModal} />
+      <SignInModal signIn={signIn} signInClick={handleSignInModal} />
     </div>
   );
 };

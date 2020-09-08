@@ -39,7 +39,6 @@ class App extends Component {
       default:
         break;
     }
-    console.log("!!!");
     return (
       <Container>
         <Navbar activePage={activePage} doPageClick={this.handlePageClick} />

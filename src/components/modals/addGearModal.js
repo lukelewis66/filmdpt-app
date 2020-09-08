@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Modal, Button, Icon } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import AddGearForm from "./addGearForm";
+import AddGearForm from "../addGearForm";
 
 const AddGearModal = ({ doGearAdd }) => {
   const [open, setOpen] = useState(false);
