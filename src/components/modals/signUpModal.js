@@ -31,10 +31,7 @@ const SignUpModal = ({ signUp, signUpClick }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       };
-      console.log("form body email: ", requestOptions);
-      fetch("/registerUser", requestOptions).then((response) =>
-        console.log("response: ", response)
-      );
+      fetch("/registerUser", requestOptions);
     }
   };
 

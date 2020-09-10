@@ -1,5 +1,5 @@
-const Model = require("../../sequelize");
 const passport = require("passport");
+const User = require("../../sequelize");
 
 module.exports = (app) => {
   app.post("/registerUser", (req, res, next) => {
@@ -18,7 +18,7 @@ module.exports = (app) => {
             email: req.body.email,
             username: user.email,
           };
-          Model.User.findOne({
+          User.findOne({
             where: {
               email: data.username,
             },

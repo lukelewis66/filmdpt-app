@@ -9,7 +9,12 @@ module.exports = (sequelize, type) => {
       },
       first_name: type.STRING,
       last_name: type.STRING,
-      credentials: type.STRING,
+      credentials: {
+        //basic, supervisor, admin
+        type: type.STRING,
+        allowNull: false,
+        defaultValue: "basic",
+      },
       email: {
         type: type.STRING,
         allowNull: false,
