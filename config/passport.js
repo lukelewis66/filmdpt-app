@@ -1,15 +1,19 @@
 //https://itnext.io/implementing-json-web-tokens-passport-js-in-a-javascript-application-with-react-b86b1f313436
 //what I referenced to get this working
-jwtSecret = require("./jwtConfig");
-bcrypt = require("bcrypt");
+const jwtSecret = require("./jwtConfig");
+const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
+dotenv.config();
 const BCRYPT_SALT_ROUNDS = 12;
 
 const passport = require("passport"),
   localStrategy = require("passport-local").Strategy,
-  User = require("../sequelize"),
   JWTstrategy = require("passport-jwt").Strategy,
   ExtractJWT = require("passport-jwt").ExtractJwt;
 
+const User = require("../sequelize");
+
+//NOTE: username is the email
 passport.use(
   "register",
   new localStrategy(
@@ -19,12 +23,14 @@ passport.use(
       session: false,
     },
     (username, password, done) => {
+      console.log("username: ", username);
       try {
         User.findOne({
           where: {
-            username: username,
+            email: username,
           },
         }).then((user) => {
+          console.log("here");
           if (user !== null) {
             console.log("an account with this email already exists");
             return done(null, false, {
@@ -32,7 +38,7 @@ passport.use(
             });
           } else {
             bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then((hashedPassword) => {
-              User.create({ username, password: hashedPassword }).then(
+              User.create({ email: username, password: hashedPassword }).then(
                 (user) => {
                   console.log("user created");
                   return done(null, user);
@@ -42,6 +48,7 @@ passport.use(
           }
         });
       } catch (err) {
+        console.log("in catch");
         done(err);
       }
     }
@@ -60,7 +67,7 @@ passport.use(
       try {
         User.findOne({
           where: {
-            username: username,
+            email: username,
           },
         }).then((user) => {
           if (user === null) {
@@ -85,7 +92,7 @@ passport.use(
 
 const opts = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme("JWT"),
-  secretOrKey: jwtSecret.secret,
+  secretOrKey: process.env.JWT_SECRET,
 };
 
 passport.use(

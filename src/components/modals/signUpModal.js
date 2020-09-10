@@ -25,6 +25,16 @@ const SignUpModal = ({ signUp, signUpClick }) => {
       setFormMessage("All fields must be filled");
     } else if (form.password != form.confirm_password) {
       setFormMessage("Passwords do not match");
+    } else {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      };
+      console.log("form body email: ", requestOptions);
+      fetch("/registerUser", requestOptions).then((response) =>
+        console.log("response: ", response)
+      );
     }
   };
 

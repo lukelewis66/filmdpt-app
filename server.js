@@ -7,18 +7,19 @@ const cors = require("cors");
 const mysql = require("mysql");
 const config = require("./dbconfig");
 const passport = require("passport");
-require("./config/passport");
-require("./routes/loginUser")(app);
-require("./routes/registerUser")(app);
-require("./routes/findUsers")(app);
-require("./routes/deleteUser")(app);
-require("./routes/updateUser")(app);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
+
+require("./config/passport");
+require("./routes/user/loginUser")(app);
+require("./routes/user/registerUser")(app);
+require("./routes/user/findUsers")(app);
+require("./routes/user/deleteUser")(app);
+require("./routes/user/updateUser")(app);
 
 const db = config.database;
 const connection = mysql.createConnection({
