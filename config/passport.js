@@ -11,7 +11,8 @@ const passport = require("passport"),
   JWTstrategy = require("passport-jwt").Strategy,
   ExtractJWT = require("passport-jwt").ExtractJwt;
 
-const User = require("../sequelize");
+const Model = require("../sequelize");
+const User = Model.User;
 
 //NOTE: username is the email
 passport.use(
@@ -23,14 +24,12 @@ passport.use(
       session: false,
     },
     (username, password, done) => {
-      console.log("username: ", username);
       try {
         User.findOne({
           where: {
             email: username,
           },
         }).then((user) => {
-          console.log("here");
           if (user !== null) {
             console.log("an account with this email already exists");
             return done(null, false, {
@@ -48,7 +47,6 @@ passport.use(
           }
         });
       } catch (err) {
-        console.log("in catch");
         done(err);
       }
     }

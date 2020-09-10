@@ -32,4 +32,4 @@ sequelize
   .then(() => console.log("all tables synced"))
   .catch((error) => console.log(error));
 
-module.exports = User;
+module.exports = { Item, User, Reservation };

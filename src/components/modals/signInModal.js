@@ -13,8 +13,21 @@ const SignInModal = ({ signIn, signInClick }) => {
     //clear form fields here?
   });
 
-  const handleClick = () => {
-    console.log("clicked");
+  const handleSignIn = () => {
+    if (form.email === "" || form.password === "") {
+      console.log("email: ", form.email);
+      console.log("pwd: ", form.password);
+      setFormMessage("All fields must be filled");
+    } else {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      };
+      fetch("/loginUser", requestOptions).then((response) => {
+        console.log(response);
+      });
+    }
   };
 
   const handleChange = (field, value) => {
@@ -83,7 +96,7 @@ const SignInModal = ({ signIn, signInClick }) => {
             content="Sign Up"
             labelPosition="right"
             icon="checkmark"
-            onClick={() => handleClick()}
+            onClick={() => handleSignIn()}
             positive
           />
         </Modal.Actions>

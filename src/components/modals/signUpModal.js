@@ -14,7 +14,7 @@ const SignUpModal = ({ signUp, signUpClick }) => {
 
   useEffect(() => {});
 
-  const handleClick = () => {
+  const handleSignUp = () => {
     if (
       form.first_name === "" ||
       form.last_name === "" ||
@@ -31,7 +31,9 @@ const SignUpModal = ({ signUp, signUpClick }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       };
-      fetch("/registerUser", requestOptions);
+      fetch("/registerUser", requestOptions).then((response) => {
+        console.log(response);
+      });
     }
   };
 
@@ -134,7 +136,7 @@ const SignUpModal = ({ signUp, signUpClick }) => {
             content="Sign Up"
             labelPosition="right"
             icon="checkmark"
-            onClick={() => handleClick()}
+            onClick={() => handleSignUp()}
             positive
           />
         </Modal.Actions>
