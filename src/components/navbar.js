@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Input, Menu, Segment } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import SignUpModal from "./modals/signUpModal";
 import SignInModal from "./modals/signInModal";
+import { Link, useLocation } from "react-router-dom";
 
-const Navbar = ({ activePage, doPageClick }) => {
-  const [active, setActive] = useState(activePage);
+const Navbar = () => {
+  const [active, setActive] = useState(useLocation().pathname);
   const [signUp, setSignUp] = useState(false);
   const [signIn, setSignIn] = useState(false);
 
-  const handlePageClick = (name) => {
-    setActive(name);
-    doPageClick(name);
-  };
-
   const doSomething = () => {
-    console.log("something");
-    setSignUp(true);
+    console.log("TODO: Log Out feature");
   };
 
   const handleSignUpModal = (open) => {
@@ -40,24 +35,44 @@ const Navbar = ({ activePage, doPageClick }) => {
     <div>
       <Menu pointing>
         <Menu.Item
+          as={Link}
+          to={{
+            pathname: "/",
+            state: { message: "home" },
+          }}
           name="home"
-          active={active === "home"}
-          onClick={(e, { name }) => handlePageClick(name)}
+          active={active === "/"}
+          onClick={() => setActive("/")}
         />
         <Menu.Item
+          as={Link}
+          to={{
+            pathname: "/news",
+            state: { message: "/news" },
+          }}
           name="news"
-          active={active === "news"}
-          onClick={(e, { name }) => handlePageClick(name)}
+          active={active === "/news"}
+          onClick={() => setActive("/news")}
         />
         <Menu.Item
+          as={Link}
+          to={{
+            pathname: "/reserve",
+            state: { message: "reserve" },
+          }}
           name="reserve"
-          active={active === "reserve"}
-          onClick={(e, { name }) => handlePageClick(name)}
+          active={active === "/reserve"}
+          onClick={() => setActive("/reserve")}
         />
         <Menu.Item
+          as={Link}
+          to={{
+            pathname: "/admin",
+            state: { message: "admin" },
+          }}
           name="admin"
-          active={active === "admin"}
-          onClick={(e, { name }) => handlePageClick(name)}
+          active={active === "/admin"}
+          onClick={() => setActive("/admin")}
         />
         <Menu.Menu position="right">
           <Menu.Item name="Sign Up" onClick={() => setSignUp(true)} />

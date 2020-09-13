@@ -5,8 +5,22 @@ import AddGearModal from "./modals/addGearModal";
 
 const Admin = () => {
   const [gearList, setGearList] = useState([]);
+  const [message, setMessage] = useState();
 
   useEffect(() => {
+    let accessString = localStorage.getItem("JWT");
+    console.log("accessString: ", accessString);
+    const requestOptions = {
+      method: "GET",
+      headers: { Authorization: `JWT ${accessString}` },
+    };
+    fetch("/findUser", requestOptions)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
     getGearList();
   }, []);
 

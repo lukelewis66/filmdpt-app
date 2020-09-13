@@ -17,7 +17,7 @@ app.use(passport.initialize());
 require("./config/passport");
 require("./routes/user/loginUser")(app);
 require("./routes/user/registerUser")(app);
-require("./routes/user/findUsers")(app);
+require("./routes/user/findUser")(app);
 require("./routes/user/deleteUser")(app);
 require("./routes/user/updateUser")(app);
 

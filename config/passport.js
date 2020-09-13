@@ -33,6 +33,7 @@ passport.use(
           if (user !== null) {
             console.log("an account with this email already exists");
             return done(null, false, {
+              //info in passport.authenticate("register", (err, user, info) =>{}) will contain message
               message: "an account with this email already exists",
             });
           } else {
@@ -69,11 +70,13 @@ passport.use(
           },
         }).then((user) => {
           if (user === null) {
+            //info in passport.authenticate("login", (err, user, info) =>{}) will contain message
             return done(null, false, { message: "bad email" });
           } else {
             bcrypt.compare(password, user.password).then((response) => {
               if (response !== true) {
                 console.log("incorrent password");
+                //info in passport.authenticate("login", (err, user, info) =>{}) will contain message
                 return done(null, false, { message: "incorrent password" });
               }
               console.log("user found & authenticated");
@@ -99,7 +102,7 @@ passport.use(
     try {
       User.findOne({
         where: {
-          username: jwt_payload.id,
+          email: jwt_payload.id,
         },
       }).then((user) => {
         if (user) {

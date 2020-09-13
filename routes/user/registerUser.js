@@ -4,6 +4,10 @@ const User = Model.User;
 
 module.exports = (app) => {
   app.post("/registerUser", (req, res, next) => {
+    //CUSTOM CALLBACK - Callback will have access to req, res
+    //for a custom callback to work, the application must establish a session (by calling req.logIn) and send a response
+    //if authentication failed, user will be set to false
+    //if an exception occured, err will be set
     passport.authenticate("register", (err, user, info) => {
       if (err) {
         console.log(err);
@@ -37,6 +41,6 @@ module.exports = (app) => {
           });
         });
       }
-    })(req, res, next);
+    })(req, res, next); //<-- Necessary for custom callback. Gives callback access to req and res objects through closure.
   });
 };

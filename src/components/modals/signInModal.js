@@ -24,9 +24,13 @@ const SignInModal = ({ signIn, signInClick }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       };
-      fetch("/loginUser", requestOptions).then((response) => {
-        console.log(response);
-      });
+      fetch("/loginUser", requestOptions)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          localStorage.setItem("JWT", data.token);
+        });
     }
   };
 
