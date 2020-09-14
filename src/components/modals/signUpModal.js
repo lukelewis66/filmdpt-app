@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Container, Modal, Button, Icon, Form } from "semantic-ui-react";
+import { Container, Button, Icon, Form } from "semantic-ui-react";
+import { Modal } from "react-bootstrap";
 import "semantic-ui-css/semantic.min.css";
 
 const SignUpModal = ({ signUp, signUpClick }) => {
@@ -65,14 +66,10 @@ const SignUpModal = ({ signUp, signUpClick }) => {
   };
 
   return (
-    <Container>
-      <Modal
-        onClose={() => handleClose()}
-        onOpen={() => handleOpen()}
-        open={signUp}
-      >
+    <Container fluid>
+      <Modal onHide={() => handleClose()} show={signUp}>
         <Modal.Header>Sign Up</Modal.Header>
-        <Modal.Content>
+        <Modal.Body>
           <Form>
             <Form.Group widths="equal">
               <Form.Field>
@@ -124,8 +121,8 @@ const SignUpModal = ({ signUp, signUpClick }) => {
               />
             </Form.Field>
           </Form>
-        </Modal.Content>
-        <Modal.Actions>
+        </Modal.Body>
+        <Modal.Footer>
           <label id="form-message" style={{ color: "red" }}>
             {formMessage}
           </label>
@@ -139,7 +136,7 @@ const SignUpModal = ({ signUp, signUpClick }) => {
             onClick={() => handleSignUp()}
             positive
           />
-        </Modal.Actions>
+        </Modal.Footer>
       </Modal>
     </Container>
   );

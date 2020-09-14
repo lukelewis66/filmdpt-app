@@ -4,7 +4,6 @@ const ItemModel = require("./models/item");
 const ReservationModel = require("./models/reservation");
 const config = require("./dbconfig");
 const db = config.database;
-const item = require("./models/item");
 
 const sequelize = new Sequelize(db.database, db.user, db.password, {
   host: db.host,

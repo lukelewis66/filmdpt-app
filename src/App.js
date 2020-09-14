@@ -3,11 +3,12 @@ import "semantic-ui-css/semantic.min.css";
 import "./App.css";
 import { Container, Segment } from "semantic-ui-react";
 import { Route, Switch } from "react-router-dom";
-import Navbar from "./components/navbar";
+import Navbarr from "./components/navbar";
 import Admin from "./components/admin";
 import Home from "./components/home";
 import News from "./components/news";
 import Reserve from "./components/reserve";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
   state = {
@@ -16,8 +17,8 @@ class App extends Component {
 
   render() {
     return (
-      <Container>
-        <Navbar />
+      <Container fluid>
+        <Navbarr />
         <Segment>
           <Switch>
             <Route path="/" component={Home} exact />
