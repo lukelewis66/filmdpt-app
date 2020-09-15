@@ -35,13 +35,18 @@ const Navbarr = () => {
 
   return (
     <div>
-      <Navbar bg="light" expand="md">
+      <Navbar
+        expand="md"
+        variant="dark"
+        fixed="top"
+        style={{ background: "rgb(0, 0, 0, 0.5)" }}
+      >
         <Navbar.Brand href="/home">Film Dpt</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link
-              href="/home"
+              href="/"
               name="home"
               active={active === "/"}
               onClick={() => setActive("/")}
@@ -74,8 +79,18 @@ const Navbarr = () => {
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link onClick={() => setSignUp(true)}>Sign Up</Nav.Link>
-            <Nav.Link onClick={() => setSignIn(true)}>Sign In</Nav.Link>
+            <Nav.Link
+              style={{ color: "darkorange" }}
+              onClick={() => setSignUp(true)}
+            >
+              Sign Up
+            </Nav.Link>
+            <Nav.Link
+              style={{ color: "darkorange" }}
+              onClick={() => setSignIn(true)}
+            >
+              Sign In
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

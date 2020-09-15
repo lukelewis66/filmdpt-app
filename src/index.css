@@ -12,7 +12,17 @@ body {
 }
 
 .navbar .active.item {
-  color: darkorange !important;
+  color: #ff8c00 !important;
+}
+
+.bg-header {
+  font-family: "Bebas Neue", cursive;
+  color: darkorange;
+  text-decoration: underline;
+  position: absolute;
+  bottom: 10%;
+  left: 5%;
+  font-size: 75px;
 }
 
 code {

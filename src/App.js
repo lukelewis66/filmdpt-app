@@ -8,26 +8,29 @@ import Admin from "./components/admin";
 import Home from "./components/home";
 import News from "./components/news";
 import Reserve from "./components/reserve";
+import Background from "./components/background";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
   state = {
     users: [],
+    bg: process.env.PUBLIC_URL + "/images/background-image.jpg",
   };
 
   render() {
+    const bg = process.env.PUBLIC_URL + "/images/background-image.jpg";
+    console.log(bg);
     return (
-      <Container fluid>
+      <div>
+        <Background />
         <Navbarr />
-        <Segment>
-          <Switch>
-            <Route path="/" component={Home} exact />
-            <Route path="/news" component={News} />
-            <Route path="/reserve" component={Reserve} />
-            <Route path="/admin" component={Admin} />
-          </Switch>
-        </Segment>
-      </Container>
+        <Switch>
+          <Route path="/" component={Home} exact />
+          <Route path="/news" component={News} />
+          <Route path="/reserve" component={Reserve} />
+          <Route path="/admin" component={Admin} />
+        </Switch>
+      </div>
     );
   }
 }
