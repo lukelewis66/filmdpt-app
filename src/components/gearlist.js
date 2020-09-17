@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Table } from "react-bootstrap";
 import Gear from "./gear";
 
 class GearList extends Component {
@@ -6,7 +7,7 @@ class GearList extends Component {
     const { gearlist } = this.props.gearlist;
     return (
       <div>
-        <table className="ui celled padded table">
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>Name</th>
@@ -21,7 +22,7 @@ class GearList extends Component {
               <Gear key={gear.id} gear={gear}></Gear>
             ))}
           </tbody>
-        </table>
+        </Table>
       </div>
     );
   }

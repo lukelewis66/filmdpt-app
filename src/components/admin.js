@@ -46,7 +46,7 @@ const Admin = () => {
       .catch((err) => console.log(err));
   };
   return (
-    <Container>
+    <Container style={{ paddingTop: "15px" }}>
       <GearList gearlist={gearList}></GearList>
       <AddGearModal doGearAdd={reloadGearList}></AddGearModal>
     </Container>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
 import { Container, Segment } from "semantic-ui-react";
+import { Row, Col, Card } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
 import Navbarr from "./components/navbar";
 import Admin from "./components/admin";
@@ -15,15 +16,15 @@ class App extends Component {
   state = {
     users: [],
     bg: process.env.PUBLIC_URL + "/images/background-image.jpg",
+    jwt: localStorage.getItem("JWT"),
   };
 
   render() {
-    const bg = process.env.PUBLIC_URL + "/images/background-image.jpg";
-    console.log(bg);
+    console.log("jwt: ", this.state.jwt);
     return (
       <div>
         <Background />
-        <Navbarr />
+        <Navbarr jwt={this.state.jwt} />
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/news" component={News} />

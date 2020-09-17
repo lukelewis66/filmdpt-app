@@ -4,12 +4,13 @@ import SignUpModal from "./modals/signUpModal";
 import SignInModal from "./modals/signInModal";
 import "../index.css";
 import { Navbar, Nav } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Redirect } from "react-router-dom";
 
 const Navbarr = () => {
   const [active, setActive] = useState(useLocation().pathname);
   const [signUp, setSignUp] = useState(false);
   const [signIn, setSignIn] = useState(false);
+  const [jwt, setJwt] = useState(localStorage.getItem("JWT"));
 
   const doSomething = () => {
     console.log("TODO: Log Out feature");
@@ -33,6 +34,55 @@ const Navbarr = () => {
     }
   };
 
+  const signUserOut = () => {
+    localStorage.removeItem("JWT");
+    window.location.reload();
+  };
+
+  const checkJWT = () => {
+    if (jwt !== null) {
+      console.log("we got jwt in nav: ", jwt);
+      const requestOptions = {
+        method: "GET",
+        headers: { Authorization: `JWT ${jwt}` },
+      };
+      fetch("/findUser", requestOptions)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        });
+      return (
+        <Nav>
+          <Nav.Link
+            style={{ color: "darkorange" }}
+            onClick={() => signUserOut()}
+          >
+            Sign Out
+          </Nav.Link>
+        </Nav>
+      );
+    } else {
+      return (
+        <Nav>
+          <Nav.Link
+            style={{ color: "darkorange" }}
+            onClick={() => setSignUp(true)}
+          >
+            Sign Up
+          </Nav.Link>
+          <Nav.Link
+            style={{ color: "darkorange" }}
+            onClick={() => setSignIn(true)}
+          >
+            Sign In
+          </Nav.Link>
+        </Nav>
+      );
+    }
+  };
+
   return (
     <div>
       <Navbar
@@ -46,7 +96,8 @@ const Navbarr = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link
-              href="/"
+              as={Link}
+              to="/"
               name="home"
               active={active === "/"}
               onClick={() => setActive("/")}
@@ -54,7 +105,8 @@ const Navbarr = () => {
               Home
             </Nav.Link>
             <Nav.Link
-              href="/news"
+              as={Link}
+              to="/news"
               name="news"
               active={active === "/news"}
               onClick={() => setActive("/news")}
@@ -62,7 +114,8 @@ const Navbarr = () => {
               News
             </Nav.Link>
             <Nav.Link
-              href="/reserve"
+              as={Link}
+              to="/reserve"
               name="reserve"
               active={active === "/reserve"}
               onClick={() => setActive("/reserve")}
@@ -70,7 +123,8 @@ const Navbarr = () => {
               Reserve
             </Nav.Link>
             <Nav.Link
-              href="/admin"
+              as={Link}
+              to="/admin"
               name="admin"
               active={active === "/admin"}
               onClick={() => setActive("/admin")}
@@ -78,20 +132,7 @@ const Navbarr = () => {
               Admin
             </Nav.Link>
           </Nav>
-          <Nav>
-            <Nav.Link
-              style={{ color: "darkorange" }}
-              onClick={() => setSignUp(true)}
-            >
-              Sign Up
-            </Nav.Link>
-            <Nav.Link
-              style={{ color: "darkorange" }}
-              onClick={() => setSignIn(true)}
-            >
-              Sign In
-            </Nav.Link>
-          </Nav>
+          {checkJWT()}
         </Navbar.Collapse>
       </Navbar>
       <Container fluid>

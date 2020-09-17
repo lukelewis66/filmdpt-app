@@ -30,7 +30,15 @@ const SignInModal = ({ signIn, signInClick }) => {
           return response.json();
         })
         .then((data) => {
-          localStorage.setItem("JWT", data.token);
+          if (data.auth === true) {
+            localStorage.setItem("JWT", data.token);
+            window.location.reload();
+          } else {
+            setFormMessage(data.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error.data);
         });
     }
   };

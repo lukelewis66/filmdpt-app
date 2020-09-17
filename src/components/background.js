@@ -5,6 +5,7 @@ import bg from "../images/background-image.jpg";
 
 const Background = () => {
   const [active, setActive] = useState(useLocation().pathname);
+  console.log("re-rendered");
 
   const headerStyle = {};
 

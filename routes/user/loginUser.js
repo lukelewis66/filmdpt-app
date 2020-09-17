@@ -14,9 +14,14 @@ module.exports = (app) => {
       if (err) {
         console.log(err);
       }
+
+      //passport sent back our custom error message via info
       if (info !== undefined) {
         console.log(info.message);
-        res.send(info.message);
+        res.send({
+          auth: false,
+          message: info.message,
+        });
       } else {
         req.logIn(user, (err) => {
           User.findOne({
@@ -29,7 +34,6 @@ module.exports = (app) => {
               auth: true,
               token: token,
               message: "user found & logged in",
-              //user: user,
             });
           });
         });
