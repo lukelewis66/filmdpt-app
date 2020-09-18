@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, Container } from "semantic-ui-react";
 import SignUpModal from "./modals/signUpModal";
 import SignInModal from "./modals/signInModal";
 import "../index.css";
 import { Navbar, Nav } from "react-bootstrap";
-import { Link, useLocation, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+import useCredentials from "../hooks/useCredentials";
 
-const Navbarr = () => {
-  const [active, setActive] = useState(useLocation().pathname);
+const Navbarr = ({ changeActive }) => {
+  const [activepage, setactivepage] = useState(
+    window.location.pathname.toString()
+  );
   const [signUp, setSignUp] = useState(false);
   const [signIn, setSignIn] = useState(false);
-  const [jwt, setJwt] = useState(localStorage.getItem("JWT"));
+  const credentials = useCredentials();
 
-  const doSomething = () => {
-    console.log("TODO: Log Out feature");
+  const setActive = (page) => {
+    changeActive(page);
+    setactivepage(page);
   };
 
   const handleSignUpModal = (open) => {
@@ -40,19 +44,7 @@ const Navbarr = () => {
   };
 
   const checkJWT = () => {
-    if (jwt !== null) {
-      console.log("we got jwt in nav: ", jwt);
-      const requestOptions = {
-        method: "GET",
-        headers: { Authorization: `JWT ${jwt}` },
-      };
-      fetch("/findUser", requestOptions)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-        });
+    if (credentials !== null) {
       return (
         <Nav>
           <Nav.Link
@@ -99,7 +91,7 @@ const Navbarr = () => {
               as={Link}
               to="/"
               name="home"
-              active={active === "/"}
+              active={activepage === "/"}
               onClick={() => setActive("/")}
             >
               Home
@@ -108,7 +100,7 @@ const Navbarr = () => {
               as={Link}
               to="/news"
               name="news"
-              active={active === "/news"}
+              active={activepage === "/news"}
               onClick={() => setActive("/news")}
             >
               News
@@ -117,7 +109,7 @@ const Navbarr = () => {
               as={Link}
               to="/reserve"
               name="reserve"
-              active={active === "/reserve"}
+              active={activepage === "/reserve"}
               onClick={() => setActive("/reserve")}
             >
               Reserve
@@ -126,7 +118,7 @@ const Navbarr = () => {
               as={Link}
               to="/admin"
               name="admin"
-              active={active === "/admin"}
+              active={activepage === "/admin"}
               onClick={() => setActive("/admin")}
             >
               Admin

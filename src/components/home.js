@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Users from "./users";
-import bg from "../images/background-image.jpg";
 
 const Home = () => {
   const [users, setUsers] = useState([]);

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
-import { Container, Segment } from "semantic-ui-react";
-import { Row, Col, Card } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom";
 import Navbarr from "./components/navbar";
 import Admin from "./components/admin";
@@ -17,14 +15,18 @@ class App extends Component {
     users: [],
     bg: process.env.PUBLIC_URL + "/images/background-image.jpg",
     jwt: localStorage.getItem("JWT"),
+    activepage: window.location.pathname.toString(),
+  };
+
+  changeActive = (page) => {
+    this.setState({ activepage: page });
   };
 
   render() {
-    console.log("jwt: ", this.state.jwt);
     return (
       <div>
-        <Background />
-        <Navbarr jwt={this.state.jwt} />
+        <Background activepage={this.state.activepage} />
+        <Navbarr changeActive={this.changeActive} />
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/news" component={News} />

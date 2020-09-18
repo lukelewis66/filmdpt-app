@@ -16,7 +16,7 @@ body {
 }
 
 .bg-header {
-  font-family: "Bebas Neue", cursive;
+  font-family: "Bebas Neue", sans-serif;
   color: darkorange;
   text-decoration: underline;
   position: absolute;

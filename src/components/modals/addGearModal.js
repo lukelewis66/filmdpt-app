@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Container, Modal, Button, Icon } from "semantic-ui-react";
+import { Container, Button, Icon } from "semantic-ui-react";
+import { Modal } from "react-bootstrap";
 import "semantic-ui-css/semantic.min.css";
 import AddGearForm from "../addGearForm";
 
-const AddGearModal = ({ doGearAdd }) => {
-  const [open, setOpen] = useState(false);
+const AddGearModal = ({ doGearAdd, addGear, closeAddGearModal }) => {
   const [form, setForm] = useState({
     name: "",
     level: "1",
@@ -36,29 +36,30 @@ const AddGearModal = ({ doGearAdd }) => {
       .then((response) => console.log("response: ", response))
       .then(() => doGearAdd());
   };
-  //test contribution2
+
+  const handleClose = () => {
+    clearFields();
+    closeAddGearModal();
+  };
+
+  const clearFields = () => {
+    for (const field in form) {
+      form[field] = "";
+    }
+  };
 
   return (
     <Container>
-      <Modal
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        open={open}
-        trigger={
-          <Button style={{ float: "right" }} icon>
-            <Icon name="plus" />
-          </Button>
-        }
-      >
+      <Modal onHide={() => handleClose()} show={addGear}>
         <Modal.Header>Add New Gear</Modal.Header>
-        <Modal.Content>
+        <Modal.Body>
           <AddGearForm form={form} handleChange={handleChange} />
-        </Modal.Content>
-        <Modal.Actions>
+        </Modal.Body>
+        <Modal.Footer>
           <label id="form-message" style={{ color: "red" }}>
             {formMessage}
           </label>
-          <Button color="black" onClick={() => setOpen(false)}>
+          <Button color="black" onClick={() => handleClose()}>
             Nope
           </Button>
           <Button
@@ -68,7 +69,7 @@ const AddGearModal = ({ doGearAdd }) => {
             onClick={() => handleSubmit()}
             positive
           />
-        </Modal.Actions>
+        </Modal.Footer>
       </Modal>
     </Container>
   );

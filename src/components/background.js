@@ -1,29 +1,25 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import "../index.css";
 import bg from "../images/background-image.jpg";
 
-const Background = () => {
-  const [active, setActive] = useState(useLocation().pathname);
-  console.log("re-rendered");
+const Background = ({ activepage }) => {
+  const [active, setActive] = useState(activepage);
 
-  const headerStyle = {};
+  useEffect(() => {
+    setActive(activepage);
+  });
 
   const getHeader = () => {
     console.log("here");
     switch (active) {
       case "/news":
         return "News";
-        break;
       case "/reserve":
         return "Reserve";
-        break;
       case "/admin":
         return "Admin";
-        break;
       default:
         return "Home";
-        break;
     }
   };
   return (

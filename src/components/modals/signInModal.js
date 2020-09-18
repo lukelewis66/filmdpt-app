@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, Icon, Form } from "semantic-ui-react";
+import { Container, Button, Form } from "semantic-ui-react";
 import { Modal } from "react-bootstrap";
 import "semantic-ui-css/semantic.min.css";
 
@@ -54,12 +54,6 @@ const SignInModal = ({ signIn, signInClick }) => {
     console.log("handle close called");
     clearFields();
     signInClick(false);
-  };
-
-  const handleOpen = () => {
-    console.log("handle open called");
-    clearFields();
-    signInClick(true);
   };
 
   const clearFields = () => {

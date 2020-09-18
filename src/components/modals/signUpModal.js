@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, Icon, Form } from "semantic-ui-react";
+import { Container, Button, Form } from "semantic-ui-react";
 import { Modal } from "react-bootstrap";
 import "semantic-ui-css/semantic.min.css";
 
@@ -24,7 +24,7 @@ const SignUpModal = ({ signUp, signUpClick }) => {
       form.confirm_password === ""
     ) {
       setFormMessage("All fields must be filled");
-    } else if (form.password != form.confirm_password) {
+    } else if (form.password !== form.confirm_password) {
       setFormMessage("Passwords do not match");
     } else {
       const requestOptions = {
@@ -46,23 +46,14 @@ const SignUpModal = ({ signUp, signUpClick }) => {
   };
 
   const handleClose = () => {
-    console.log("handle close called");
     clearFields();
     signUpClick(false);
   };
 
-  const handleOpen = () => {
-    console.log("handle open called");
-    clearFields();
-    signUpClick(true);
-  };
-
   const clearFields = () => {
-    form.first_name = "";
-    form.last_name = "";
-    form.email = "";
-    form.password = "";
-    form.confirm_password = "";
+    for (const field in form) {
+      form[field] = "";
+    }
   };
 
   return (
