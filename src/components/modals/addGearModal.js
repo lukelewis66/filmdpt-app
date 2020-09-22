@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Container, Button, Icon } from "semantic-ui-react";
-import { Modal } from "react-bootstrap";
+import { Button, Icon } from "semantic-ui-react";
+import { Modal, Container } from "react-bootstrap";
 import "semantic-ui-css/semantic.min.css";
-import AddGearForm from "../addGearForm";
+import AddGearForm from "../admin/addGearForm";
 
 const AddGearModal = ({ doGearAdd, addGear, closeAddGearModal }) => {
   const [form, setForm] = useState({
     name: "",
-    level: "1",
-    available: "1",
+    level: 1,
+    status: "Available",
   });
   const [formMessage, setFormMessage] = useState("");
 
@@ -32,19 +32,28 @@ const AddGearModal = ({ doGearAdd, addGear, closeAddGearModal }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ form }),
     };
-    fetch("/api/gear/add", requestOptions)
-      .then((response) => console.log("response: ", response))
-      .then(() => doGearAdd());
+    fetch("/addItem", requestOptions)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log("message: ", data.message);
+        resetFields();
+        doGearAdd();
+        setFormMessage(data.message);
+      });
   };
 
   const handleClose = () => {
-    clearFields();
+    resetFields();
     closeAddGearModal();
   };
 
-  const clearFields = () => {
+  const resetFields = () => {
     for (const field in form) {
-      form[field] = "";
+      form.name = "";
+      form.level = 1;
+      form.status = "Available";
     }
   };
 

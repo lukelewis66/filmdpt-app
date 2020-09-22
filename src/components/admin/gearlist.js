@@ -12,9 +12,9 @@ class GearList extends Component {
             <tr>
               <th>Name</th>
               <th>Level</th>
-              <th>Available</th>
+              <th>Status</th>
               <th>Return Date</th>
-              <th>Borrowed By</th>
+              <th>Reservation</th>
             </tr>
           </thead>
           <tbody>

@@ -3,10 +3,10 @@ import "semantic-ui-css/semantic.min.css";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import Navbarr from "./components/navbar";
-import Admin from "./components/admin";
-import Home from "./components/home";
-import News from "./components/news";
-import Reserve from "./components/reserve";
+import Admin from "./components/admin/admin";
+import Home from "./components/home/home";
+import News from "./components/news/news";
+import Reserve from "./components/reserve/reserve";
 import Background from "./components/background";
 import "bootstrap/dist/css/bootstrap.min.css";
 

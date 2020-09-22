@@ -20,6 +20,8 @@ require("./routes/user/registerUser")(app);
 require("./routes/user/findUser")(app);
 require("./routes/user/deleteUser")(app);
 require("./routes/user/updateUser")(app);
+require("./routes/item/addItem")(app);
+require("./routes/item/getItems")(app);
 
 const db = config.database;
 const connection = mysql.createConnection({

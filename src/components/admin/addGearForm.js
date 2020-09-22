@@ -4,14 +4,14 @@ import "semantic-ui-css/semantic.min.css";
 
 const AddGearForm = ({ form, handleChange }) => {
   const levelOptions = [
-    { key: "1", value: "1", text: "Film 1" },
-    { key: "2", value: "2", text: "Film 2" },
-    { key: "3", value: "3", text: "Film 3" },
-    { key: "4", value: "4", text: "Film 4" },
+    { key: "1", value: 1, text: "Film 1" },
+    { key: "2", value: 2, text: "Film 2" },
+    { key: "3", value: 3, text: "Film 3" },
+    { key: "4", value: 4, text: "Film 4" },
   ];
   const availableOptions = [
-    { key: "1", value: "1", text: "Yes" },
-    { key: "0", value: "0", text: "No" },
+    { key: "Available", value: "Available", text: "Yes" },
+    { key: "Blocked", value: "Blocked", text: "No" },
   ];
   return (
     <Form>
@@ -36,8 +36,8 @@ const AddGearForm = ({ form, handleChange }) => {
         <Form.Field
           control={Select}
           label="Available to Borrow"
-          field="available"
-          value={form.available}
+          field="status"
+          value={form.status}
           options={availableOptions}
           onChange={(e, { field, value }) => handleChange(field, value)}
         />
