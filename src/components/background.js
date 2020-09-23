@@ -10,7 +10,6 @@ const Background = ({ activepage }) => {
   });
 
   const getHeader = () => {
-    console.log("here");
     switch (active) {
       case "/news":
         return "News";

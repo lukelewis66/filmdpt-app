@@ -43,10 +43,28 @@ const Navbarr = ({ changeActive }) => {
     window.location.reload();
   };
 
+  const checkAdmin = () => {
+    if (credentials === "admin" || credentials === "supervisor") {
+      console.log("??");
+      return (
+        <Nav.Link
+          as={Link}
+          to="/admin"
+          name="admin"
+          active={activepage === "/admin"}
+          onClick={() => setActive("/admin")}
+        >
+          Admin
+        </Nav.Link>
+      );
+    }
+  };
+
   const checkJWT = () => {
     if (credentials !== null) {
       return (
         <Nav>
+          <Nav.Link style={{ color: "darkorange" }}>My Profile</Nav.Link>
           <Nav.Link
             style={{ color: "darkorange" }}
             onClick={() => signUserOut()}
@@ -114,15 +132,7 @@ const Navbarr = ({ changeActive }) => {
             >
               Reserve
             </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/admin"
-              name="admin"
-              active={activepage === "/admin"}
-              onClick={() => setActive("/admin")}
-            >
-              Admin
-            </Nav.Link>
+            {checkAdmin()}
           </Nav>
           {checkJWT()}
         </Navbar.Collapse>

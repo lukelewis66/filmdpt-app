@@ -23,12 +23,7 @@ const Home = () => {
       )
       .catch((err) => console.log(err));
   };
-  return (
-    <div>
-      <p>iii</p>
-      {/* <Users users={users} /> */}
-    </div>
-  );
+  return <div>{/* <Users users={users} /> */}</div>;
 };
 
 export default Home;

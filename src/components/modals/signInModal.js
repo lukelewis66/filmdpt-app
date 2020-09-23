@@ -10,14 +10,8 @@ const SignInModal = ({ signIn, signInClick }) => {
     password: "",
   });
 
-  useEffect(() => {
-    //clear form fields here?
-  });
-
   const handleSignIn = () => {
     if (form.email === "" || form.password === "") {
-      console.log("email: ", form.email);
-      console.log("pwd: ", form.password);
       setFormMessage("All fields must be filled");
     } else {
       const requestOptions = {
@@ -51,7 +45,6 @@ const SignInModal = ({ signIn, signInClick }) => {
   };
 
   const handleClose = () => {
-    console.log("handle close called");
     clearFields();
     signInClick(false);
   };
@@ -59,6 +52,12 @@ const SignInModal = ({ signIn, signInClick }) => {
   const clearFields = () => {
     form.email = "";
     form.password = "";
+  };
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      handleSignIn();
+    }
   };
 
   return (
@@ -74,6 +73,7 @@ const SignInModal = ({ signIn, signInClick }) => {
                 field="email"
                 value={form.name}
                 onChange={(e, { field, value }) => handleChange(field, value)}
+                onKeyPress={(e) => handleEnter(e)}
               />
             </Form.Field>
             <Form.Field>
@@ -84,6 +84,7 @@ const SignInModal = ({ signIn, signInClick }) => {
                 field="password"
                 value={form.password}
                 onChange={(e, { field, value }) => handleChange(field, value)}
+                onKeyPress={(e) => handleEnter(e)}
               />
             </Form.Field>
           </Form>

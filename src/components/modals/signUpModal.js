@@ -56,6 +56,12 @@ const SignUpModal = ({ signUp, signUpClick }) => {
     }
   };
 
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      handleSignUp();
+    }
+  };
+
   return (
     <Container fluid>
       <Modal onHide={() => handleClose()} show={signUp}>
@@ -70,6 +76,7 @@ const SignUpModal = ({ signUp, signUpClick }) => {
                   field="first_name"
                   value={form.first_name}
                   onChange={(e, { field, value }) => handleChange(field, value)}
+                  onKeyPress={(e) => handleEnter(e)}
                 />
               </Form.Field>
               <Form.Field>
@@ -79,6 +86,7 @@ const SignUpModal = ({ signUp, signUpClick }) => {
                   field="last_name"
                   value={form.last_name}
                   onChange={(e, { field, value }) => handleChange(field, value)}
+                  onKeyPress={(e) => handleEnter(e)}
                 />
               </Form.Field>
             </Form.Group>
@@ -89,6 +97,7 @@ const SignUpModal = ({ signUp, signUpClick }) => {
                 field="email"
                 value={form.name}
                 onChange={(e, { field, value }) => handleChange(field, value)}
+                onKeyPress={(e) => handleEnter(e)}
               />
             </Form.Field>
             <Form.Field>
@@ -99,6 +108,7 @@ const SignUpModal = ({ signUp, signUpClick }) => {
                 field="password"
                 value={form.password}
                 onChange={(e, { field, value }) => handleChange(field, value)}
+                onKeyPress={(e) => handleEnter(e)}
               />
             </Form.Field>
             <Form.Field>
@@ -109,6 +119,7 @@ const SignUpModal = ({ signUp, signUpClick }) => {
                 field="confirm_password"
                 value={form.confirm_password}
                 onChange={(e, { field, value }) => handleChange(field, value)}
+                onKeyPress={(e) => handleEnter(e)}
               />
             </Form.Field>
           </Form>

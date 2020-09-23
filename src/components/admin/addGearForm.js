@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Select } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
-const AddGearForm = ({ form, handleChange }) => {
+const AddGearForm = ({ form, handleChange, handleEnter }) => {
   const levelOptions = [
     { key: "1", value: 1, text: "Film 1" },
     { key: "2", value: 2, text: "Film 2" },
@@ -22,6 +22,7 @@ const AddGearForm = ({ form, handleChange }) => {
           field="name"
           value={form.name}
           onChange={(e, { field, value }) => handleChange(field, value)}
+          onKeyPress={(e) => handleEnter(e)}
         />
       </Form.Field>
       <Form.Group widths="equal">
@@ -32,6 +33,7 @@ const AddGearForm = ({ form, handleChange }) => {
           value={form.level}
           options={levelOptions}
           onChange={(e, { field, value }) => handleChange(field, value)}
+          onKeyPress={(e) => handleEnter(e)}
         />
         <Form.Field
           control={Select}
@@ -40,6 +42,7 @@ const AddGearForm = ({ form, handleChange }) => {
           value={form.status}
           options={availableOptions}
           onChange={(e, { field, value }) => handleChange(field, value)}
+          onKeyPress={(e) => handleEnter(e)}
         />
       </Form.Group>
     </Form>

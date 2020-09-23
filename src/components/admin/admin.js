@@ -12,6 +12,7 @@ const Admin = () => {
   const credentials = useCredentials();
 
   useEffect(() => {
+    console.log("called");
     getGearList();
   }, []);
 
@@ -35,7 +36,11 @@ const Admin = () => {
         </Container>
       );
     } else {
-      return <p>Oops! You don't have the permission to access this page</p>;
+      if (credentials === "basic") {
+        return <p>Oops! You don't have the permission to access this page</p>;
+      } else {
+        return <p></p>;
+      }
     }
   };
 
@@ -65,18 +70,6 @@ const Admin = () => {
           }))
         );
       })
-      // }).then(())
-      //   setGearList(
-      //     res.data.map((gear) => ({
-      //       id: gear.gear_id,
-      //       name: gear.gear_name,
-      //       level: gear.gear_level,
-      //       available: gear.gear_available,
-      //       returndate: gear.gear_returndate,
-      //       borrowingUserID: gear.gear_borrowingUserID,
-      //     }))
-      //   )
-      // )
       .catch((err) => console.log(err));
   };
   return <div>{checkCredentials()}</div>;

@@ -49,6 +49,12 @@ const AddGearModal = ({ doGearAdd, addGear, closeAddGearModal }) => {
     closeAddGearModal();
   };
 
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
   const resetFields = () => {
     for (const field in form) {
       form.name = "";
@@ -62,7 +68,11 @@ const AddGearModal = ({ doGearAdd, addGear, closeAddGearModal }) => {
       <Modal onHide={() => handleClose()} show={addGear}>
         <Modal.Header>Add New Gear</Modal.Header>
         <Modal.Body>
-          <AddGearForm form={form} handleChange={handleChange} />
+          <AddGearForm
+            form={form}
+            handleChange={handleChange}
+            handleEnter={handleEnter}
+          />
         </Modal.Body>
         <Modal.Footer>
           <label id="form-message" style={{ color: "red" }}>
