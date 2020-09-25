@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Select } from "semantic-ui-react";
+import { Form, Select, Radio } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 const AddGearForm = ({ form, handleChange, handleEnter }) => {
@@ -45,6 +45,78 @@ const AddGearForm = ({ form, handleChange, handleEnter }) => {
           onKeyPress={(e) => handleEnter(e)}
         />
       </Form.Group>
+      <Form.Group widths="equal">
+        <Form.Field>
+          <Form.Field>
+            <Radio
+              label="Film 1"
+              name="requirements"
+              field="level"
+              value={1}
+              checked={form.level === 1}
+              onChange={(e, { field, value }) => handleChange(field, value)}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label="Film 2"
+              name="requirements"
+              field="level"
+              value={2}
+              checked={form.level === 2}
+              onChange={(e, { field, value }) => handleChange(field, value)}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label="Film 3"
+              name="requirements"
+              field="level"
+              value={3}
+              checked={form.level === 3}
+              onChange={(e, { field, value }) => handleChange(field, value)}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label="Film 4"
+              name="requirements"
+              field="level"
+              value={4}
+              checked={form.level === 4}
+              onChange={(e, { field, value }) => handleChange(field, value)}
+            />
+          </Form.Field>
+        </Form.Field>
+        <Form.Field>
+          <Form.Field>
+            <Radio
+              label="Yes"
+              field="status"
+              name="available"
+              value="Available"
+              checked={form.status === "Available"}
+              onChange={(e, { field, value }) => handleChange(field, value)}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label="No"
+              field="status"
+              name="available"
+              value="Blocked"
+              checked={form.status === "Blocked"}
+              onChange={(e, { field, value }) => handleChange(field, value)}
+            />
+          </Form.Field>
+        </Form.Field>
+      </Form.Group>
+      {/* <Form.Row>
+        <Form.Check inline label="Film 1" type="radio" id="film1" />
+        <Form.Check inline label="Film 2" type="radio" id="film2" />
+        <Form.Check inline label="Film 3" type="radio" id="film3" />
+        <Form.Check inline label="Film 4" type="radio" id="film4" />
+      </Form.Row> */}
     </Form>
   );
 };
