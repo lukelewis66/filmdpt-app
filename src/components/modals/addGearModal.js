@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Icon } from "semantic-ui-react";
+import { Button, Icon, Popup, Message } from "semantic-ui-react";
 import { Modal, Container } from "react-bootstrap";
 import "semantic-ui-css/semantic.min.css";
 import AddGearForm from "../admin/addGearForm";
@@ -10,6 +10,7 @@ const AddGearModal = ({ doGearAdd, addGear, closeAddGearModal }) => {
     level: 1,
     status: "Available",
   });
+  const [successPopup, setSuccessPopup] = useState(false);
   const [formMessage, setFormMessage] = useState("");
 
   //this function is passed to the addGearForm child component along with the form state object defined above.
@@ -19,6 +20,31 @@ const AddGearModal = ({ doGearAdd, addGear, closeAddGearModal }) => {
       ...prevState,
       [field]: value,
     }));
+    setFormMessage("");
+  };
+
+  const addSuccess = () => {
+    if (successPopup) {
+      return (
+        <Message
+          success
+          header="Item Added"
+          content="Gear successfully added to database"
+        />
+      );
+    }
+  };
+
+  const addError = () => {
+    if (formMessage !== "") {
+      return (
+        <Message
+          error
+          header="Missing Field"
+          content="Name field cannot be blank"
+        />
+      );
+    }
   };
 
   const handleSubmit = () => {
@@ -40,7 +66,10 @@ const AddGearModal = ({ doGearAdd, addGear, closeAddGearModal }) => {
         console.log("message: ", data.message);
         resetFields();
         doGearAdd();
-        setFormMessage(data.message);
+        setSuccessPopup(true);
+        setTimeout(() => {
+          setSuccessPopup(false);
+        }, 1500);
       });
   };
 
@@ -72,22 +101,15 @@ const AddGearModal = ({ doGearAdd, addGear, closeAddGearModal }) => {
             form={form}
             handleChange={handleChange}
             handleEnter={handleEnter}
+            formMessage={formMessage}
           />
+          {addSuccess()}
+          {addError()}
         </Modal.Body>
         <Modal.Footer>
-          <label id="form-message" style={{ color: "red" }}>
-            {formMessage}
-          </label>
           <Button color="black" onClick={() => handleClose()}>
             Nope
           </Button>
-          <Button
-            content="Add Gear"
-            labelPosition="right"
-            icon="checkmark"
-            onClick={() => handleSubmit()}
-            positive
-          />
         </Modal.Footer>
       </Modal>
     </Container>
